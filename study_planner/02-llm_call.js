@@ -1,20 +1,21 @@
-import { llm, model } from "./01-sdk-client.js"
+import { ai, model } from "./01-sdk-client.js";
 
 async function main() {
-    try {
-        const prompt = "Explain Fenwick tree in simple terms.";
-        
-        console.log("Prompt:", prompt);
+  try {
+    const prompt = "Explain Fenwick tree data structure in 2 simple sentences.";
 
-        const response = await llm.models.generateContent({
-            model,
-            contents: prompt
-        });
-        
-        console.log("Response:", response.text);
-    } catch (error) {
-        console.error("Error:", error);
-    }
+    console.log("Sending prompt:", prompt);
+    const result = await ai.models.generateContent({
+      model,
+      contents: prompt,
+    });
+
+    console.log("\nModel response:\n", result.text ?? "(No text returned)");
+
+  } catch (error) {
+    console.error("Generation failed:", error.message);
+    process.exitCode = 1;
+  }
 }
 
 main();
